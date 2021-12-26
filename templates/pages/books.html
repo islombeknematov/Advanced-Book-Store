@@ -1,0 +1,207 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <style>
+        .container {
+            margin: 0 auto;
+            max-width: 910px;
+        }
+
+        .choose {
+            width: 100%;
+            height: 40px;
+        }
+
+        .fa {
+            margin-right: 20px;
+            font-size: 30px;
+            color: gray;
+            float: right;
+        }
+
+        /******************************************
+        Book stuff
+        *******************************************/
+
+        .book {
+            display: inline-block;
+            width: 230px;
+            height: 390px;
+            box-shadow: 0 0 20px #aaa;
+            margin: 25px;
+            padding: 10px 10px 0 10px;
+            vertical-align: top;
+            transition: height 1s;
+        }
+
+        /* star button */
+        .book:after {
+            font-family: FontAwesome;
+            content: "\f006";
+            font-size: 35px;
+            position: relative;
+            left: -.1cm;
+            top: -1.6cm;
+            float: right;
+        }
+
+        .cover {
+            border: 2px solid gray;
+            height: 80%;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .cover img {
+            width: 100%;
+            height: 100%;
+
+        }
+
+        .book p {
+            margin-top: 12px;
+            font-size: 20px;
+        }
+
+        .book .author {
+            font-size: 15px;
+        }
+
+        @media (max-width: 941px) {
+            .container {
+                max-width: 700px;
+            }
+
+            .book {
+                margin: 49px;
+            }
+        }
+
+        @media (max-width: 730px) {
+            .book {
+                display: block;
+                margin: 0 auto;
+                margin-top: 50px;
+            }
+
+            .cover {
+
+            }
+        }
+
+        /*********************************
+        other
+        **********************************/
+
+        h1 {
+            color: gray;
+            text-align: center;
+            font-size: 50px;
+            margin-bottom: -3px;
+        }
+
+        /**********************************
+        display change
+        ***********************************/
+        /*book height smaller, cover opacity, move text onto cover and star too
+        animate it */
+        #list-th:target .book {
+            height: 100px;
+            width: 250px;
+            padding: 10px;
+            margin: 25px auto 25px auto;
+        }
+
+        #list-th:target .cover {
+            width: 246px;
+        }
+
+        #list-th:target img {
+            opacity: .1;
+        }
+
+        #list-th:target p {
+            margin-top: -62px;
+            margin-left: 20px;
+        }
+
+        /* remove button? */
+        #large-th:target .book {
+            height: 390px;
+        }
+
+    </style>
+{% endblock %}
+
+
+{% block content %}
+    {% include 'layouts/header.html' %}
+
+    <div class="wrapper row3">
+        <main class="hoc container clear">
+            <!-- main body -->
+            <!-- ################################################################################################ -->
+            <div class="content">
+                <!-- ################################################################################################ -->
+                <div id="gallery">
+                    <figure>
+                        {#                        <header class="heading">Gallery Title Goes Here</header>#}
+
+
+                        <ul class="nospace clear">
+
+
+                            <div id="large-th">
+                                <div class="container">
+                                    <h1> A list of books</h1>
+                                    <br>
+                                    <div class="choose">
+                                        <a href="#list-th"><i class="fa fa-th-list" aria-hidden="true"></i></a>
+                                        <a href="#large-th"><i class="fa fa-th-large" aria-hidden="true"></i></a>
+                                    </div>
+                                    <div id="list-th">
+                                        {% for book in object_list %}
+                                            <div class="book read">
+                                                <div class="cover">
+                                                    <img src="{{ book.cover.url }}" alt="image">
+                                                </div>
+                                                <div class="description">
+                                                    <p class="title">{{ book.title }}<br>
+                                                        <span class="author">{{ book.author }}</span></p>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </ul>
+                    </figure>
+                </div>
+
+
+                <!-- ################################################################################################ -->
+                <!-- ################################################################################################ -->
+                <nav class="pagination justify-content-center">
+                    <ul>
+                        <li><a href="#">&laquo;</a></li>
+                        <li><a href="#">6</a></li>
+                        <li class="current"><strong>7</strong></li>
+                        <li><a href="#">8</a></li>
+                        <li><strong>&hellip;</strong></li>
+
+                        <li><a href="#">&raquo;</a></li>
+                    </ul>
+                </nav>
+                <!-- ################################################################################################ -->
+            </div>
+            <!-- ################################################################################################ -->
+            <!-- / main body -->
+            <div class="clear"></div>
+        </main>
+    </div>
+
+{% endblock %}
+
+
+
